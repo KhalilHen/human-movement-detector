@@ -31,7 +31,7 @@
       "type": "wokwi-pir-motion-sensor",
       "id": "pir1",
       "top": -171.08,
-      "left": 221.3,
+      "left": 240.5,
       "rotate": 90,
       "attrs": {}
     },
@@ -45,25 +45,22 @@
     }
   ],
   "connections": [
-    [ "uno1:GND.1", "bb1:bn.1", "green", [ "h38.4", "v-47.7" ] ],
     [ "uno1:5V", "bb1:bp.1", "red", [ "h-19.1", "v-159.4", "h124.8", "v-9.6", "h86.4" ] ],
     [ "bb1:bn.3", "bb1:4b.j", "green", [ "h21.7", "v-12" ] ],
     [ "bb1:bp.2", "bb1:5b.i", "red", [ "h11.7", "v-12", "h19.2" ] ],
-    [ "bb1:bn.10", "bb1:13b.j", "green", [ "h0" ] ],
-    [ "bb1:bp.8", "bb1:11b.j", "red", [ "h0" ] ],
-    [ "pir1:OUT", "uno1:8", "gold", [ "h0" ] ],
     [ "bb1:bn.29", "bb1:36b.j", "green", [ "h0" ] ],
     [ "bb1:bn.26", "bb1:33b.j", "red", [ "h39.7", "v-0.8" ] ],
+    [ "uno1:8", "bb1:4b.g", "gold", [ "h28.8", "v-95.6", "h9.6" ] ],
+    [ "uno1:GND.1", "bb1:bn.6", "green", [ "h0" ] ],
+    [ "bb1:bn.10", "bb1:13b.j", "green", [ "h0" ] ],
+    [ "bb1:bp.8", "bb1:11b.j", "red", [ "h0" ] ],
     [ "ultrasonic1:VCC", "bb1:33b.f", "", [ "$bb" ] ],
     [ "ultrasonic1:TRIG", "bb1:34b.f", "", [ "$bb" ] ],
     [ "ultrasonic1:ECHO", "bb1:35b.f", "", [ "$bb" ] ],
     [ "ultrasonic1:GND", "bb1:36b.f", "", [ "$bb" ] ],
     [ "wokwi-buzzer-0:1", "bb1:4b.f", "", [ "$bb" ] ],
     [ "wokwi-buzzer-0:2", "bb1:5b.f", "", [ "$bb" ] ],
-    [ "uno1:13", "bb1:4b.h", "orange", [ "h57.6", "v-47.6" ] ],
-    [ "pir1:VCC", "bb1:11b.g", "", [ "$bb" ] ],
-    [ "pir1:OUT", "bb1:12b.g", "", [ "$bb" ] ],
-    [ "pir1:GND", "bb1:13b.g", "", [ "$bb" ] ]
+    [ "pir1:OUT", "uno1:10", "green", [ "h0" ] ]
   ],
   "dependencies": {}
 }
