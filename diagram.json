@@ -41,7 +41,21 @@
       "top": 43.5,
       "left": 192.9,
       "rotate": 90,
-      "attrs": { "distance": "2" }
+      "attrs": { "distance": "95" }
+    },
+    {
+      "type": "wokwi-slide-potentiometer",
+      "id": "pot1",
+      "top": 62.6,
+      "left": 440.6,
+      "attrs": { "travelLength": "30" }
+    },
+    {
+      "type": "wokwi-pushbutton-6mm",
+      "id": "btn1",
+      "top": -40.6,
+      "left": 364.8,
+      "attrs": { "color": "green", "bounce": "1", "key": "1" }
     }
   ],
   "connections": [
@@ -55,14 +69,19 @@
     [ "bb1:bn.10", "bb1:13b.j", "green", [ "h0" ] ],
     [ "bb1:bp.8", "bb1:11b.j", "red", [ "h0" ] ],
     [ "pir1:OUT", "uno1:10", "green", [ "h0" ] ],
-    [ "wokwi-buzzer-0:1", "bb1:4b.f", "", [ "$bb" ] ],
-    [ "wokwi-buzzer-0:2", "bb1:5b.f", "", [ "$bb" ] ],
     [ "uno1:3", "bb1:34b.j", "orange", [ "h48", "v138.4" ] ],
     [ "uno1:2", "bb1:35b.j", "orange", [ "h28.8", "v138.5" ] ],
+    [ "wokwi-buzzer-0:1", "bb1:4b.f", "", [ "$bb" ] ],
+    [ "wokwi-buzzer-0:2", "bb1:5b.f", "", [ "$bb" ] ],
     [ "ultrasonic1:VCC", "bb1:33b.f", "", [ "$bb" ] ],
     [ "ultrasonic1:TRIG", "bb1:34b.f", "", [ "$bb" ] ],
     [ "ultrasonic1:ECHO", "bb1:35b.f", "", [ "$bb" ] ],
-    [ "ultrasonic1:GND", "bb1:36b.f", "", [ "$bb" ] ]
+    [ "ultrasonic1:GND", "bb1:36b.f", "", [ "$bb" ] ],
+    [ "bb1:bp.18", "bb1:23b.j", "red", [ "h0" ] ],
+    [ "btn1:1.r", "bb1:23b.f", "red", [ "v-9.6", "h-28" ] ],
+    [ "bb1:bn.19", "bb1:24b.j", "green", [ "h0" ] ],
+    [ "btn1:2.l", "bb1:24b.f", "green", [ "h-9.6", "v10" ] ],
+    [ "btn1:2.r", "uno1:6", "orange", [ "h20", "v-47.6", "h-28.8" ] ]
   ],
   "dependencies": {}
 }
