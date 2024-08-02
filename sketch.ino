@@ -2,17 +2,24 @@ int buzzerPin = 8;
 const int inputPin = 10; 
 int pirState = LOW; // C
 int val = 0; 
+const int buttonPin = 6;
 
 
 //Distance sensor code
 #define PIN_TRIG 3
 #define PIN_ECHO 2
 
+#define buttonPin 6
+
+const int redPin = 5;
+const int greenPin =  9;
+const int bluePin;
+
+
 
 //Push button code
-#define BUTTON_PIN 6
-int oldValue = LOW; 
-boolean turnOffBeep = false;
+int oldButtonValue = LOW; 
+bool turnOffBeep = false;
 void setup() {
   pinMode(buzzerPin, OUTPUT);
   pinMode(inputPin, INPUT);
@@ -21,40 +28,33 @@ void setup() {
   pinMode(PIN_ECHO, INPUT);
 
 //buttn
-  pinMode(BUTTON_PIN, INPUT);
+  //pinMode(BUTTON_PIN, INPUT);
+pinMode(buttonPin, INPUT_PULLUP);
+
 
   Serial.begin(9600);
 }
 
 void loop() {
-  int buttonValue = digitalRead(
-    BUTTON_PIN
-  );
+  int buttonValue = digitalRead(buttonPin);
 
 
-  if(buttonValue != oldValue)
+  if(buttonValue != oldButtonValue)
   {
-    if(buttonValue == HIGH)
-    {
+    delay(50);
+   buttonValue = digitalRead(buttonPin);
+    if(buttonValue == LOW)
+    { 
+      turnOffBeep = !turnOffBeep; 
+      Serial.println(turnOffBeep ? "Beep is turned off" : "Beep is turned on");
 
-        if(turnOffBeep == false)
-        {
-
-            turnOffBeep = true;
-    else if (turnOffBeep == true) {
-
-      turnOffBeep = false; 
-    }
-        }
+        
 
       Serial.println("The button is pressed.");
     }
-    else
-    {
-      Serial.println("The button is released.");
-    }
+  
     // Remember the value for the next time.
-    oldValue = buttonValue;
+    oldButtonValue = buttonValue;
   }
 
 digitalWrite(PIN_TRIG, HIGH);
@@ -77,20 +77,20 @@ digitalWrite(PIN_TRIG, HIGH);
 
 
 //Comment out to prevent a headache 
-if(turnOffBeep == true) {
+if(!turnOffBeep ) {
 
 Serial.println("Beep is turned off"); 
 
-}
- else  if (distanceCm < 500) {
 
-    //tone(buzzerPin, 0);
+   if (distanceCm < 500) {
+
+   // tone(buzzerPin, 450);
     delay(500);
     noTone(buzzerPin);
     delay(beepInterval);
   }
 
- 
+}
 
 
   val = digitalRead(inputPin); 
