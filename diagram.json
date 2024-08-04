@@ -41,7 +41,7 @@
       "top": 43.5,
       "left": 192.9,
       "rotate": 90,
-      "attrs": { "distance": "264" }
+      "attrs": { "distance": "2" }
     },
     {
       "type": "wokwi-slide-potentiometer",
@@ -62,7 +62,7 @@
       "id": "rgb1",
       "top": 148,
       "left": -18.1,
-      "attrs": { "common": "cathode" }
+      "attrs": { "common": "anode" }
     },
     {
       "type": "wokwi-resistor",
@@ -70,7 +70,7 @@
       "top": 148.8,
       "left": 181.85,
       "rotate": 90,
-      "attrs": { "value": "1000" }
+      "attrs": { "value": "1" }
     },
     {
       "type": "wokwi-resistor",
@@ -78,7 +78,7 @@
       "top": 225.6,
       "left": 181.85,
       "rotate": 90,
-      "attrs": { "value": "1000" }
+      "attrs": { "value": "1" }
     },
     {
       "type": "wokwi-resistor",
@@ -86,7 +86,15 @@
       "top": 302.4,
       "left": 181.85,
       "rotate": 90,
-      "attrs": { "value": "1000" }
+      "attrs": { "value": "1" }
+    },
+    {
+      "type": "wokwi-ds1307",
+      "id": "rtc1",
+      "top": 208.7,
+      "left": -114.4,
+      "rotate": 90,
+      "attrs": {}
     }
   ],
   "connections": [
@@ -110,6 +118,22 @@
     [ "rgb1:G", "bb1:52b.j", "gold", [ "v0" ] ],
     [ "rgb1:B", "bb1:60b.j", "blue", [ "v9.6", "h1.6", "v124.8" ] ],
     [ "bb1:bp.30", "bb1:38b.i", "red", [ "h0" ] ],
+    [ "bb1:bp.37", "bb1:46b.g", "red", [ "h0" ] ],
+    [ "bb1:bp.44", "bb1:54b.i", "red", [ "h0" ] ],
+    [ "bb1:35b.j", "uno1:2", "green", [ "h-57.6", "v-19.2", "h-28.8" ] ],
+    [ "bb1:34b.j", "uno1:3", "green", [ "h-57.6", "v-38.4" ] ],
+    [ "bb1:38b.j", "uno1:5", "orange", [ "h-76.8", "v-19.2" ] ],
+    [ "uno1:9", "bb1:46b.j", "gold", [ "h38.4", "v212", "h19.2" ] ],
+    [ "pot1:VCC", "bb1:63b.f", "red", [ "h-67.2", "v307.2" ] ],
+    [ "bb1:bp.50", "bb1:63b.j", "red", [ "h10.5", "v28" ] ],
+    [ "bb1:bn.23", "bb1:26b.j", "green", [ "h0" ] ],
+    [ "pot1:GND", "bb1:26b.f", "green", [ "v-105.6", "h-407.6" ] ],
+    [ "pot1:SIG", "uno1:A0", "green", [ "h-508.8", "v-29.6", "h-76.8", "v-67.2", "h19.2" ] ],
+    [ "rtc1:SDA", "uno1:A4", "green", [ "h-28.8", "v-86.7" ] ],
+    [ "rtc1:SCL", "uno1:A5", "green", [ "h-48", "v-57.8" ] ],
+    [ "bb1:bp.46", "bb1:tp.46", "red", [ "h87.3", "v-10.4", "h105.6", "v9.6" ] ],
+    [ "bb1:tp.47", "bb1:58t.a", "red", [ "h0" ] ],
+    [ "rtc1:5V", "bb1:58t.e", "red", [ "v230.4", "h259.6" ] ],
     [ "wokwi-buzzer-0:1", "bb1:4b.f", "", [ "$bb" ] ],
     [ "wokwi-buzzer-0:2", "bb1:5b.f", "", [ "$bb" ] ],
     [ "ultrasonic1:VCC", "bb1:33b.f", "", [ "$bb" ] ],
@@ -122,12 +146,7 @@
     [ "r2:2", "bb1:52b.h", "", [ "$bb" ] ],
     [ "r3:1", "bb1:54b.h", "", [ "$bb" ] ],
     [ "r3:2", "bb1:60b.h", "", [ "$bb" ] ],
-    [ "bb1:bp.37", "bb1:46b.g", "red", [ "h0" ] ],
-    [ "bb1:bp.44", "bb1:54b.i", "red", [ "h0" ] ],
-    [ "bb1:35b.j", "uno1:2", "green", [ "h-57.6", "v-19.2", "h-28.8" ] ],
-    [ "bb1:34b.j", "uno1:3", "green", [ "h-57.6", "v-38.4" ] ],
-    [ "bb1:38b.j", "uno1:5", "orange", [ "h-76.8", "v-19.2" ] ],
-    [ "uno1:9", "bb1:46b.j", "gold", [ "h38.4", "v212", "h19.2" ] ]
+    [ "rtc1:GND", "uno1:GND.3", "black", [ "v-96", "h-134.4", "v-105.6" ] ]
   ],
   "dependencies": {}
 }

@@ -1,103 +1,135 @@
+#include <Servo.h>
+#include <Wire.h>
+#include <RTClib.h>
+
+
+RTC_DS3231 rtc;
+
+
+const int pirPin = 10;
 int buzzerPin = 8; 
 const int inputPin = 10; 
-int pirState = LOW; // C
+int pirState = LOW; 
 int val = 0; 
 const int buttonPin = 6;
 
-
-//Distance sensor code
+// Distance sensor code
 #define PIN_TRIG 3
 #define PIN_ECHO 2
 
-#define buttonPin 6
-
 const int redPin = 5;
-const int greenPin =  9;
-const int bluePin;
+const int greenPin = 9;
+const int bluePin = 11; // Define the blue pin if it's used
 
-
-
-//Push button code
+// Push button code
 int oldButtonValue = LOW; 
 bool turnOffBeep = false;
+
 void setup() {
   pinMode(buzzerPin, OUTPUT);
   pinMode(inputPin, INPUT);
-
-    pinMode(PIN_TRIG, OUTPUT);
+  pinMode(PIN_TRIG, OUTPUT);
   pinMode(PIN_ECHO, INPUT);
+  pinMode(buttonPin, INPUT_PULLUP);
+  
+  pinMode(redPin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
 
-//buttn
-  //pinMode(BUTTON_PIN, INPUT);
-pinMode(buttonPin, INPUT_PULLUP);
+
+  if (!rtc.begin()) {
+    Serial.println("Couldn't find RTC");
+    while (1);
+  }
+
+  if (rtc.lostPower()) {
+    Serial.println("RTC lost power, setting the time!");
+    rtc.adjust(DateTime(F(__DATE__), F(__TIME__)));
+  }
+
+
+  pinMode(pirPin, INPUT);
 
 
   Serial.begin(9600);
 }
 
 void loop() {
+
+    DateTime now = rtc.now();
+
+ if (digitalRead(pirPin) == HIGH) {
+    // Motion detected
+    Serial.print("Motion detected at ");
+    Serial.print(now.timestamp(DateTime::TIMESTAMP_FULL));
+    Serial.println();
+    
+    // Wait to avoid logging multiple times for the same motion
+    delay(2000);
+  }
+
+
   int buttonValue = digitalRead(buttonPin);
 
-
-  if(buttonValue != oldButtonValue)
-  {
+  if (buttonValue != oldButtonValue) {
     delay(50);
-   buttonValue = digitalRead(buttonPin);
-    if(buttonValue == LOW)
-    { 
+    buttonValue = digitalRead(buttonPin);
+    if (buttonValue == LOW) { 
       turnOffBeep = !turnOffBeep; 
       Serial.println(turnOffBeep ? "Beep is turned off" : "Beep is turned on");
-
-        
-
       Serial.println("The button is pressed.");
     }
-  
-    // Remember the value for the next time.
     oldButtonValue = buttonValue;
   }
 
-digitalWrite(PIN_TRIG, HIGH);
+  digitalWrite(PIN_TRIG, HIGH);
   delayMicroseconds(10);
   digitalWrite(PIN_TRIG, LOW);
 
- int duration = pulseIn(PIN_ECHO, HIGH);
-  int 
- distanceCm = duration / 58; // Calculate distance in centimeters
+  int duration = pulseIn(PIN_ECHO, HIGH);
+  int distanceCm = duration / 58; // Calculate distance in centimeters
 
   Serial.print("Distance in CM: ");
   Serial.println(distanceCm);
   Serial.print("Distance in inches: ");
   Serial.println(duration / 148);
 
-
   int beepInterval = map(distanceCm, 0, 100, 200, 1000); 
-  beepInterval = constrain(beepInterval, 1000, 3000); 
+  beepInterval = constrain(beepInterval, 1000, 3000);
 
+  // Read the slider value from A0
+  int sliderValue = analogRead(A0);
+  int buzzerFrequency = map(sliderValue, 0, 1023, 100, 1000); // Map the slider value to a frequency range
 
+  if (turnOffBeep) {
+    // Set LED to yellow
+    analogWrite(redPin, 255); 
+    analogWrite(greenPin, 255); 
+  } else {
+    if (distanceCm < 100) {
+      // Set LED to red
+      analogWrite(redPin, 255); 
+    } else {
+      // Set LED to green
+      analogWrite(redPin, 0);   
+      analogWrite(greenPin, 255); 
+      analogWrite(bluePin, 0);  
+    }
 
-//Comment out to prevent a headache 
-if(!turnOffBeep ) {
-
-Serial.println("Beep is turned off"); 
-
-
-   if (distanceCm < 500) {
-
-   // tone(buzzerPin, 450);
-    delay(500);
-    noTone(buzzerPin);
-    delay(beepInterval);
+    // Handle buzzer tone
+    if (distanceCm < 500) {
+      tone(buzzerPin, buzzerFrequency);
+      delay(500);
+      noTone(buzzerPin);
+      delay(beepInterval);
+    }
   }
-
-}
-
 
   val = digitalRead(inputPin); 
 
-  if (val == HIGH && pirState == LOW  && distanceCm < 100  ) {       
+  if (val == HIGH && pirState == LOW && distanceCm < 100) {       
     Serial.println("Motion detected!");
-    tone(buzzerPin, 1000); 
+    tone(buzzerPin, buzzerFrequency); 
     delay(500); 
     noTone(buzzerPin); 
     pirState = HIGH; 
