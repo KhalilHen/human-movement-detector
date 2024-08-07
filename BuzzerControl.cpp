@@ -1,7 +1,7 @@
-#ifndef BUZZERCONTROL_H
-#define BUZZERCONTROL_H
+#include <Arduino.h>   // Ensure you include Arduino core library
+#include "BuzzerControl.h"
 
-// Function
+
 
 void playBuzzer(int buzzerPin, int frequency, int duration) {
     tone(buzzerPin, frequency, duration);
@@ -10,4 +10,3 @@ void playBuzzer(int buzzerPin, int frequency, int duration) {
 void stopBuzzer(int buzzerPin) {
     noTone(buzzerPin);
 }
-#endif 

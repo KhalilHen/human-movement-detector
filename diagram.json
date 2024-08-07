@@ -39,9 +39,9 @@
       "type": "wokwi-hc-sr04",
       "id": "ultrasonic1",
       "top": 43.5,
-      "left": 192.9,
+      "left": 183.3,
       "rotate": 90,
-      "attrs": { "distance": "187" }
+      "attrs": { "distance": "285" }
     },
     {
       "type": "wokwi-slide-potentiometer",
@@ -123,16 +123,16 @@
     [ "bb1:tp.47", "bb1:58t.a", "red", [ "h0" ] ],
     [ "rtc1:5V", "bb1:58t.e", "red", [ "v230.4", "h259.6" ] ],
     [ "rtc1:GND", "uno1:GND.3", "black", [ "v-96", "h-134.4", "v-105.6" ] ],
-    [ "wokwi-buzzer-0:1", "bb1:4b.f", "", [ "$bb" ] ],
-    [ "wokwi-buzzer-0:2", "bb1:5b.f", "", [ "$bb" ] ],
     [ "r1:1", "bb1:38b.h", "", [ "$bb" ] ],
     [ "r1:2", "bb1:44b.h", "", [ "$bb" ] ],
     [ "r2:1", "bb1:46b.h", "", [ "$bb" ] ],
     [ "r2:2", "bb1:52b.h", "", [ "$bb" ] ],
-    [ "ultrasonic1:VCC", "bb1:33b.f", "", [ "$bb" ] ],
-    [ "ultrasonic1:TRIG", "bb1:34b.f", "", [ "$bb" ] ],
-    [ "ultrasonic1:ECHO", "bb1:35b.f", "", [ "$bb" ] ],
-    [ "ultrasonic1:GND", "bb1:36b.f", "", [ "$bb" ] ]
+    [ "wokwi-buzzer-0:1", "bb1:4b.f", "", [ "$bb" ] ],
+    [ "wokwi-buzzer-0:2", "bb1:5b.f", "", [ "$bb" ] ],
+    [ "ultrasonic1:VCC", "bb1:33b.g", "", [ "$bb" ] ],
+    [ "ultrasonic1:TRIG", "bb1:34b.g", "", [ "$bb" ] ],
+    [ "ultrasonic1:ECHO", "bb1:35b.g", "", [ "$bb" ] ],
+    [ "ultrasonic1:GND", "bb1:36b.g", "", [ "$bb" ] ]
   ],
   "dependencies": {}
 }

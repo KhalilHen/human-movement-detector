@@ -2,6 +2,8 @@
 #include <Wire.h>
 #include <RTClib.h>
 #include "LEDControl.h" 
+#include "BuzzerControl.h"
+#include "ButtonControl.h"
 
 RTC_DS3231 rtc;
 
@@ -11,23 +13,22 @@ int buzzerPin = 8;
 const int inputPin = 10; 
 int pirState = LOW; 
 int val = 0; 
-const int buttonPin = 6;
+
+
 
 // Distance sensor code
 #define PIN_TRIG 3
 #define PIN_ECHO 2
 
-// Push button code
-int oldButtonValue = LOW; 
-bool turnOffBeep = false;
+
 
 void setup() {
   pinMode(buzzerPin, OUTPUT);
   pinMode(inputPin, INPUT);
   pinMode(PIN_TRIG, OUTPUT);
   pinMode(PIN_ECHO, INPUT);
-  pinMode(buttonPin, INPUT_PULLUP);
-  
+
+    setupButton();
   pinMode(redPin, OUTPUT);
   pinMode(greenPin, OUTPUT);
 
@@ -63,19 +64,8 @@ void loop() {
     delay(2000);
   }
 
+bool turnOffBeep = checkButtonState();
 
-  int buttonValue = digitalRead(buttonPin);
-
-  if (buttonValue != oldButtonValue) {
-    delay(50);
-    buttonValue = digitalRead(buttonPin);
-    if (buttonValue == LOW) { 
-      turnOffBeep = !turnOffBeep; 
-      Serial.println(turnOffBeep ? "Beep is turned off" : "Beep is turned on");
-      Serial.println("The button is pressed.");
-    }
-    oldButtonValue = buttonValue;
-  }
 
   digitalWrite(PIN_TRIG, HIGH);
   delayMicroseconds(10);
@@ -112,9 +102,12 @@ void loop() {
 
     // Handle buzzer tone
     if (distanceCm < 500) {
-      tone(buzzerPin, buzzerFrequency);
+
+            playBuzzer(buzzerPin, buzzerFrequency, 500);
+
       delay(500);
-      noTone(buzzerPin);
+            stopBuzzer(buzzerPin);
+
       delay(beepInterval);
     }
   }
@@ -123,9 +116,13 @@ void loop() {
 
   if (val == HIGH && pirState == LOW && distanceCm < 100) {       
     Serial.println("Motion detected!");
-    tone(buzzerPin, buzzerFrequency); 
+        playBuzzer(buzzerPin, buzzerFrequency, 500);
+
+
     delay(500); 
-    noTone(buzzerPin); 
+        stopBuzzer(buzzerPin);
+
+
     pirState = HIGH; 
   } else if (val == LOW) {
     pirState = LOW; 
