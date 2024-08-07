@@ -1,7 +1,7 @@
 #include <Servo.h>
 #include <Wire.h>
 #include <RTClib.h>
-
+#include "LEDControl.h" 
 
 RTC_DS3231 rtc;
 
@@ -17,10 +17,6 @@ const int buttonPin = 6;
 #define PIN_TRIG 3
 #define PIN_ECHO 2
 
-const int redPin = 5;
-const int greenPin = 9;
-const int bluePin = 11; // Define the blue pin if it's used
-
 // Push button code
 int oldButtonValue = LOW; 
 bool turnOffBeep = false;
@@ -34,7 +30,6 @@ void setup() {
   
   pinMode(redPin, OUTPUT);
   pinMode(greenPin, OUTPUT);
-  pinMode(bluePin, OUTPUT);
 
 
   if (!rtc.begin()) {
@@ -103,17 +98,16 @@ void loop() {
 
   if (turnOffBeep) {
     // Set LED to yellow
-    analogWrite(redPin, 255); 
-    analogWrite(greenPin, 255); 
+ yellowColor();
   } else {
     if (distanceCm < 100) {
       // Set LED to red
-      analogWrite(redPin, 255); 
+      
+    redColor();
+
     } else {
       // Set LED to green
-      analogWrite(redPin, 0);   
-      analogWrite(greenPin, 255); 
-      analogWrite(bluePin, 0);  
+   greenColor();
     }
 
     // Handle buzzer tone
@@ -137,3 +131,4 @@ void loop() {
     pirState = LOW; 
   }
 }
+
