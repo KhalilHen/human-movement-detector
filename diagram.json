@@ -30,8 +30,8 @@
     {
       "type": "wokwi-pir-motion-sensor",
       "id": "pir1",
-      "top": -171.08,
-      "left": 240.5,
+      "top": -324.68,
+      "left": 182.9,
       "rotate": 90,
       "attrs": {}
     },
@@ -46,8 +46,8 @@
     {
       "type": "wokwi-slide-potentiometer",
       "id": "pot1",
-      "top": 62.6,
-      "left": 440.6,
+      "top": 72.2,
+      "left": 411.8,
       "attrs": { "travelLength": "30" }
     },
     {
@@ -87,6 +87,13 @@
       "left": -114.4,
       "rotate": 90,
       "attrs": {}
+    },
+    {
+      "type": "wokwi-pi-pico",
+      "id": "pico1",
+      "top": -300.75,
+      "left": 426,
+      "attrs": { "builder": "pico-sdk" }
     }
   ],
   "connections": [
@@ -95,7 +102,6 @@
     [ "bb1:bp.2", "bb1:5b.i", "red", [ "h11.7", "v-12", "h19.2" ] ],
     [ "bb1:bn.29", "bb1:36b.j", "green", [ "h0" ] ],
     [ "bb1:bn.26", "bb1:33b.j", "red", [ "h39.7", "v-0.8" ] ],
-    [ "uno1:8", "bb1:4b.g", "gold", [ "h28.8", "v-95.6", "h9.6" ] ],
     [ "uno1:GND.1", "bb1:bn.6", "green", [ "h0" ] ],
     [ "bb1:bn.10", "bb1:13b.j", "green", [ "h0" ] ],
     [ "bb1:bp.8", "bb1:11b.j", "red", [ "h0" ] ],
@@ -104,14 +110,11 @@
     [ "btn1:1.r", "bb1:23b.f", "red", [ "v-9.6", "h-28" ] ],
     [ "bb1:bn.19", "bb1:24b.j", "green", [ "h0" ] ],
     [ "btn1:2.l", "bb1:24b.f", "green", [ "h-9.6", "v10" ] ],
-    [ "btn1:2.r", "uno1:6", "orange", [ "h20", "v-47.6", "h-28.8" ] ],
     [ "rgb1:COM", "bb1:36b.i", "green", [ "v9.2", "h144.1" ] ],
     [ "rgb1:R", "bb1:44b.j", "gold", [ "v9.6" ] ],
     [ "rgb1:G", "bb1:52b.j", "gold", [ "v0" ] ],
     [ "bb1:35b.j", "uno1:2", "green", [ "h-57.6", "v-19.2", "h-28.8" ] ],
     [ "bb1:34b.j", "uno1:3", "green", [ "h-57.6", "v-38.4" ] ],
-    [ "bb1:38b.j", "uno1:5", "orange", [ "h-76.8", "v-19.2" ] ],
-    [ "uno1:9", "bb1:46b.j", "gold", [ "h38.4", "v212", "h19.2" ] ],
     [ "pot1:VCC", "bb1:63b.f", "red", [ "h-67.2", "v307.2" ] ],
     [ "bb1:bp.50", "bb1:63b.j", "red", [ "h10.5", "v28" ] ],
     [ "bb1:bn.23", "bb1:26b.j", "green", [ "h0" ] ],
@@ -127,12 +130,19 @@
     [ "r1:2", "bb1:44b.h", "", [ "$bb" ] ],
     [ "r2:1", "bb1:46b.h", "", [ "$bb" ] ],
     [ "r2:2", "bb1:52b.h", "", [ "$bb" ] ],
+    [ "pico1:GND.1", "bb1:tn.1", "black", [ "h0" ] ],
+    [ "bb1:tn.2", "bb1:1t.a", "green", [ "h-9.5", "v-48.8" ] ],
+    [ "pico1:3V3", "bb1:tp.1", "#8f4814", [ "h30", "v-67.2", "h-172.8", "v76.8" ] ],
+    [ "pico1:GP8", "bb1:4b.g", "green", [ "h-76.8", "v28.8", "h-115.2" ] ],
     [ "wokwi-buzzer-0:1", "bb1:4b.f", "", [ "$bb" ] ],
     [ "wokwi-buzzer-0:2", "bb1:5b.f", "", [ "$bb" ] ],
     [ "ultrasonic1:VCC", "bb1:33b.g", "", [ "$bb" ] ],
     [ "ultrasonic1:TRIG", "bb1:34b.g", "", [ "$bb" ] ],
     [ "ultrasonic1:ECHO", "bb1:35b.g", "", [ "$bb" ] ],
-    [ "ultrasonic1:GND", "bb1:36b.g", "", [ "$bb" ] ]
+    [ "ultrasonic1:GND", "bb1:36b.g", "", [ "$bb" ] ],
+    [ "pico1:GP6", "btn1:2.r", "orange", [ "h-9.6", "v192", "h-9.6" ] ],
+    [ "pico1:GP9", "bb1:46b.f", "green", [ "h-57.6", "v384" ] ],
+    [ "pico1:GP5", "bb1:38b.j", "green", [ "h-86.4", "v-96", "h-240", "v316.8" ] ]
   ],
   "dependencies": {}
 }
